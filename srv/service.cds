@@ -27,5 +27,5 @@ service MyService {
     entity Stocks as projection on db.Stocks;
     entity Files as projection on db.Files;
     function postattach(p : String) returns String;
-
+    function fileds(para1 : String, Para2 : String) returns String;
 }

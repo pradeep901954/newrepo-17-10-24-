@@ -1,0 +1,62 @@
+<!-- <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
+	<VBox core:require="{ handler: 'msales/ext/fragment/Comments'}">
+		<Button text="Comments" press="handler.onPress" />
+	</VBox>
+</core:FragmentDefinition> -->
+
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
+	   <VBox id="_IDGenVBox1"  core:require="{ handler: 'msales/ext/fragment/Comments'}" width="100%">
+        <!-- <Toolbar id="_IDGenToolbar" >
+            <Title id="_IDGenTitle1"  text="Comments History"/>
+            <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+            <Button id="_IDGenButton1"  text="Browse History" press="handler.onBrowseHistoryPress"/>
+        </Toolbar>
+        
+        <TextArea id="_IDGenTextArea" 
+             
+            showExceededText="true" 
+            maxLength="1000" 
+            width="100%" 
+            height="120px" 
+            value="{context>/comment}"/>
+
+        <Dialog id="_IDGenDialog" 
+             
+            title="Comment History" 
+            stretch="false" 
+            contentWidth="50%" 
+            afterClose="onCloseHistoryDialog"
+            afterOpen="onDialogOpen">
+
+            <customHeader>
+                <Toolbar id="_IDGenToolbar1" >
+                    <Title id="_IDGenTitle" text="Comment History"/>
+                    <ToolbarSpacer id="_IDGenToolbarSpacer2"/>
+                    <Button id="_IDGenButton" text="Close" press="handler.onCloseHistoryDialog"/>
+                </Toolbar>
+            </customHeader>
+
+            <VBox id="_IDGenVBox2"  width="100%" height="400px">
+                <ScrollContainer id="_IDGenScrollContainer"  height="100%" vertical="true" horizontal="false">
+                    <suite:Timeline id="_IDGenTimeline" 
+                         
+                        enableDoubleSided="true" 
+                        groupByType="None"      
+                        sortOldestFirst="true" 
+                        content="{myModel>/Files}" 
+                        showSearch="false"   
+                        showSort="false"         
+                        showHeaderBar="false">
+
+                        
+                        <suite:TimelineItem id="_IDGenTimelineItem" 
+                            dateTime="{myModel>createdAt}" 
+                            title="{myModel>createdBy}" 
+                            text="{myModel>commentText}" 
+                        />
+                    </suite:Timeline>
+                </ScrollContainer>
+            </VBox>
+        </Dialog> -->
+    </VBox>
+</core:FragmentDefinition>

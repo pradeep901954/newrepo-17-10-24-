@@ -136,7 +136,7 @@ module.exports = async function (params, srv) {
             if (status[0].status == 'Pending' || status[0].status == 'Nego') {
                 editbut = "true";
             }
-            return editbut;
+            return editbut,status;
         }
     });
 
@@ -221,36 +221,39 @@ module.exports = async function (params, srv) {
                 return req.info(400, warningMessage);
             }
         }
-        if (req.data.status == 'Approved') {
-            debugger
-            var workflowContent = {
-                "context": {
-                    "DocType": "AG",
-                    "SalesOrg": "1000",
-                    "DistChan": "10",
-                    "Division": "00",
-                    "qt_itemSet": [
-                        {
-                            "ItemNumber": "000010",
-                            "Material": "100-100",
-                            "Quantity": "100"
-                        }
-                    ],
-                    "qt_partnerSet": [
-                        {
-                            "PartRole": "AG",
-                            "PartNumber": "0000001000"
-                        }
-                    ]
-                }
-            };
-            var TEST_DEST2 = await cds.connect.to("TEST_DEST1");
-            // var result1 = await TEST_DEST2.get(`/sap/opu/odata/sap/ZOD_PO_GENERATE_SRV/qt_headerSet('0020000172')?$expand=qt_itemSet,qt_partnerSet&$format=json`);
-            var result1 = await TEST_DEST2.post(`/sap/opu/odata/sap/ZOD_PO_GENERATE_SRV/qt_headerSet`, workflowContent);
-            console.log(result1);
-        }
-
     });
+
+
+    // if (req.data.status == 'Approved') {
+    //     debugger
+    //     var workflowContent = {
+    //         "context": {
+    //             "DocType": "AG",
+    //             "SalesOrg": "1000",
+    //             "DistChan": "10",
+    //             "Division": "00",
+    //             "qt_itemSet": [
+    //                 {
+    //                     "ItemNumber": "000010",
+    //                     "Material": "100-100",
+    //                     "Quantity": "100"
+    //                 }
+    //             ],
+    //             "qt_partnerSet": [
+    //                 {
+    //                     "PartRole": "AG",
+    //                     "PartNumber": "0000001000"
+    //                 }
+    //             ]
+    //         }
+    //     };
+    //     var TEST_DEST2 = await cds.connect.to("TEST_DEST1");
+    //     // var result1 = await TEST_DEST2.get(`/sap/opu/odata/sap/ZOD_PO_GENERATE_SRV/qt_headerSet('0020000172')?$expand=qt_itemSet,qt_partnerSet&$format=json`);
+    //     var result1 = await TEST_DEST2.post(`/sap/opu/odata/sap/ZOD_PO_GENERATE_SRV/qt_headerSet`, workflowContent);
+    //     console.log(result1);
+    // }
+
+
 
     // this.before('UPDATE', PurchaseEnquiry, async (req) => {
     //     debugger;

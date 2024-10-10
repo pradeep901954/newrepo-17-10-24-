@@ -8,6 +8,7 @@ modules:
   path: gen/srv
   requires:
   - name: Mahindra_Sales-db
+  - name: uaa_Mahindra_Sales
   provides:
   - name: srv-api
     properties:
@@ -49,6 +50,36 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: Mahindra_Sales-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: Mahindra_Sales-destination-service
+    parameters:
+      content-target: true
+  - name: Mahindra_Sales-repo-host
+    parameters:
+      service-key:
+        name: Mahindra_Sales-repo-host-key
+  - name: uaa_Mahindra_Sales
+    parameters:
+      service-key:
+        name: uaa_Mahindra_Sales-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: Mahindra_sales_123_Mahindra_Sales_repo_host
+          ServiceInstanceName: Mahindra_Sales-html5-srv
+          ServiceKeyName: Mahindra_Sales-repo-host-key
+          sap.cloud.service: Mahindra_sales_123
+        - Authentication: OAuth2UserTokenExchange
+          Name: Mahindra_sales_123_uaa_Mahindra_Sales
+          ServiceInstanceName: Mahindra_Sales-xsuaa-service
+          ServiceKeyName: uaa_Mahindra_Sales-key
+          sap.cloud.service: Mahindra_sales_123
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
 resources:
 - name: Mahindra_Sales-db
   type: com.sap.xs.hdi-container
@@ -65,7 +96,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -74,11 +105,27 @@ resources:
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: Mahindra_Sales-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: Mahindra_Sales-destination-service
     service-plan: lite
+  requires:
+  - name: srv-api
+- name: uaa_Mahindra_Sales
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: Mahindra_Sales-xsuaa-service
+    service-plan: application
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true

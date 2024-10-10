@@ -5,18 +5,13 @@ annotate service.PurchaseEnquiry with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : 'Contact Person',
-                Value : contactPerson,
-            },
-            {
-                $Type : 'UI.DataField',
                 Label : 'Company Name',
                 Value : companyName,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Address',
-                Value : address,
+                Label : 'Contact Person',
+                Value : contactPerson,
             },
             {
                 $Type : 'UI.DataField',
@@ -30,8 +25,13 @@ annotate service.PurchaseEnquiry with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Sales Order',
-                Value : salesOrder,
+                Label : 'VAN',
+                Value : van,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'Address',
+                Value : address,
             },
             {
                 $Type : 'UI.DataField',
@@ -40,13 +40,8 @@ annotate service.PurchaseEnquiry with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Delivery Location',
-                Value : deliveryLocation,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'VAN',
-                Value : van,
+                Label : 'Distribution Chanells',
+                Value : distributionchanells,
             },
             {
                 $Type : 'UI.DataField',
@@ -55,28 +50,13 @@ annotate service.PurchaseEnquiry with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Distribution Chanells',
-                Value : distributionchanells,
+                Label : 'Sales Order',
+                Value : salesOrder,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Total Price',
-                Value : totalPrice,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'tax',
-                Value : tax,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'Grand Total',
-                Value : grandTotal,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'Status',
-                Value : status,
+                Value : poID,
+                Label : 'Parchase Order',
             },
         ],
     },
@@ -116,33 +96,18 @@ annotate service.PurchaseEnquiry with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'purchaseEnquiryID',
+            Label : 'Purchase Enquiry ID',
             Value : purchaseEnquiryID,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'contactPerson',
-            Value : contactPerson,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'address',
-            Value : address,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'phone',
-            Value : phone,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'email',
-            Value : email,
-        },
-        {
-            $Type : 'UI.DataField',
             Value : companyName,
-            Label : 'companyName',
+            Label : 'Company Name',
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Contact Person',
+            Value : contactPerson,
         },
     ],
     UI.SelectionPresentationVariant #tableView : {
@@ -320,6 +285,15 @@ annotate service.PurchaseEnquiry with @(
             },
         ],
     },
+    UI.HeaderInfo : {
+        TypeName : 'Customer Details',
+        TypeNamePlural : '',
+        Title : {
+            $Type : 'UI.DataField',
+            Value : companyName,
+        },
+    },
+    UI.DeleteHidden : true,
 );
 
 annotate service.PurchareVehicle with @(
@@ -453,5 +427,9 @@ annotate service.PurchaseEnquiry with {
 
 annotate service.PurchaseEnquiry with {
     distributionchanells @Common.FieldControl : #ReadOnly
+};
+
+annotate service.PurchaseEnquiry with {
+    poID @Common.FieldControl : #ReadOnly
 };
 

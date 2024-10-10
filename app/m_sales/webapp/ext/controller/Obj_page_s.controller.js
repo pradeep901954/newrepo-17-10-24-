@@ -13,6 +13,9 @@ sap.ui.define(['sap/ui/core/mvc/ControllerExtension'], function (ControllerExten
 				// you can access the Fiori elements extensionAPI via this.base.getExtensionAPI
 				var oModel = this.base.getExtensionAPI().getModel();
 			},
+			onAfterRendering:  async function (oParameter) {
+				debugger
+			},
 			routing: {
 				onAfterBinding: async function (oParameter) {
 					debugger
@@ -33,30 +36,36 @@ sap.ui.define(['sap/ui/core/mvc/ControllerExtension'], function (ControllerExten
 					const oContext = oFunction.getBoundContext();
 					var result = oContext.getValue();
 					debugger
-					if (result.value == 'false') {
-						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(false);
-					} else {
-						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(true);
-					}
+					// if (result.value == 'false') {
+					// 	this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(false);
+					// } else {
+					// 	this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(true);
+					// }
 
-					var sId;
-					await this.base.getView().getContent()[0].getFooter().mAggregations.content.getContent().forEach(element => {
-						// if(element.getText())
-						debugger
-						var text;
-						try {
-							text = element.getText()
-						} catch (error) {
-							text = null;
-						}
-						// var text =element.getText();
-						if (text == 'Save')
-							sId = element.sId;
-						// element.setText("Send for Approval");
-					});
-					setTimeout(() => {
-						sap.ui.getCore().byId(sId).setText("Send Quotation");
-					}, 1000);
+					// this.base.getView().mAggregations.content[0].mAggregations.sections[2].mForwardedAggregations.subSections[0].mAggregations._grid.mAggregations.content[1].mAggregations.content.mAggregations.content.mAggregations.columns[6].setVisible().mProperties.visible = false;
+					var discount = this.base.getView().mAggregations.content[0].mAggregations.sections[2].mForwardedAggregations.subSections[0].mAggregations._grid.mAggregations.content[1].mAggregations.content.mAggregations.content.mAggregations.columns[6].sId;
+					discount;
+					this.base.getView().mAggregations.content[0].mAggregations.sections[2].mForwardedAggregations.subSections[0].mAggregations._grid.mAggregations.content[1].mAggregations.content.mAggregations.content.mAggregations.columns[6].mAggregations.template.mAggregations.content.mAggregations.contentEdit[0].mProperties.enabled = false;
+
+
+					// var sId;
+					// await this.base.getView().getContent()[0].getFooter().mAggregations.content.getContent().forEach(element => {
+					// 	// if(element.getText())
+					// 	debugger
+					// 	var text;
+					// 	try {
+					// 		text = element.getText()
+					// 	} catch (error) {
+					// 		text = null;
+					// 	}
+					// 	// var text =element.getText();
+					// 	if (text == 'Save')
+					// 		sId = element.sId;
+					// 	// element.setText("Send for Approval");
+					// });
+					// setTimeout(() => {
+					// 	sap.ui.getCore().byId(sId).setText("Send Quotation");
+					// }, 1000);
 				},
 				onBeforeBinding: async function (oParameter) {
 					debugger

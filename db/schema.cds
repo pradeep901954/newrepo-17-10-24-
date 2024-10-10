@@ -9,6 +9,7 @@ key purchaseEnquiryUuid  : UUID;
   phone : String;
   email : String;
   salesOrder : String;
+  poID :String;
   documentType : String;
   deliveryLocation : String;
   companyName : String;
@@ -20,13 +21,15 @@ key purchaseEnquiryUuid  : UUID;
   grandTotal : String;
   quotationID : String;
   status : String;
+  NegoId : String;
+  band : String;
   enquiryToFile : Composition of many Files on enquiryToFile.fileToEnquiry = $self;
   enquiryToPVehicle : Composition of many PurchareVehicle on enquiryToPVehicle.vehicleTopurchaseEnquiry = $self;
   enquiryToVehicle : Composition of many QuotationVehicle on enquiryToVehicle.vehicleToEnquiry = $self;
   enquiryToQuotation : Composition of  many Quotation on enquiryToQuotation.quototionToEnquiry = $self;
   }
 
-entity PurchareVehicle { 
+entity PurchareVehicle @(UI: {CreateHidden: true, DeleteHidden: true }) { 
     key vehicleID : UUID;
     vehicleCode : String;
     purchaseEnquiryUuid  : String;
@@ -121,6 +124,9 @@ entity SalesOrder {
   price : String;
   taxes : String;
   discount : String;
+  silver : String;
+  gold : String;
+  platinum : String;
 }
 
 entity PaymentDetails{
