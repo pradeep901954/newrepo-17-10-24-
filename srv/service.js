@@ -328,10 +328,11 @@ module.exports = async function (params, srv) {
 
             if (results[0].comments != req.data.comments) {
                 await INSERT.into(Comment).entries({
-                    purchaseEnquiryUuid: req.data.purchaseEnquiryUuid,
-                    createdBy: req.headers["x-username"],
+                    commentId: req.data.fileName,
+                    purchaseEnquiryUuid : req.data.purchaseEnquiryUuid  ,  
+                    createdBy: req.headers["x-username"],       
                     createdAt: currentDateTime,
-                    commentsText: req.data.comments
+                    commentsText: req.data.comments    
                 });
             }
         }

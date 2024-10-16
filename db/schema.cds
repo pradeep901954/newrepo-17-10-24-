@@ -28,7 +28,7 @@ key purchaseEnquiryUuid  : UUID;
   enquiryToPVehicle : Composition of many PurchareVehicle on enquiryToPVehicle.vehicleTopurchaseEnquiry = $self;
   enquiryToVehicle : Composition of many QuotationVehicle on enquiryToVehicle.vehicleToEnquiry = $self;
   enquiryToQuotation : Composition of  many Quotation on enquiryToQuotation.quototionToEnquiry = $self;
-  enquiryToComments : Composition of many Comment on enquiryToComments.commentToEnquiry = $self;
+  enquiryToComments : Association to many Comment on enquiryToComments.commentToEnquiry=$self;
   }
 
 entity PurchareVehicle @(UI: {CreateHidden: true, DeleteHidden: true }) { 
