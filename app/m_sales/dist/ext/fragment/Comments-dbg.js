@@ -41,7 +41,7 @@ sap.ui.define([
                         }
                     });
                 });
-   debugger
+
                 
                 const currentUrl = window.location.href;
                 const regex = /purchaseEnquiryUuid=([a-f0-9\-]+)/;

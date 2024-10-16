@@ -24,6 +24,19 @@
                     "odataVersion": "4.0"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "sales_obj-display": {
+                    "semanticObject": "sales_obj",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
         }
     },
     "sap.ui": {
@@ -45,7 +58,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.129.1",
+            "minUI5Version": "1.120.17",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -102,7 +115,7 @@
                     "options": {
                         "settings": {
                             "contextPath": "/PurchaseEnquiry",
-                            "variantManagement": "Page",
+                            "variantManagement": "None",
                             "navigation": {
                                 "PurchaseEnquiry": {
                                     "detail": {
@@ -148,7 +161,77 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "contextPath": "/PurchaseEnquiry"
+                            "contextPath": "/PurchaseEnquiry",
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "UploadSet": {
+                                            "template": "msales.ext.fragment.UploadSet",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "VehicleDetails"
+                                            },
+                                            "title": "UploadSet"
+                                        },
+                                        "Comments": {
+                                            "template": "msales.ext.fragment.Comments",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "UploadSet"
+                                            },
+                                            "title": "Comments"
+                                        }
+                                    }
+                                },
+                                "header": {
+                                    "actions": {
+                                        "1": {
+                                            "press": "msales.ext.controller.SendQuotation.SendQuotation",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "Send Quotation",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "EditAction"
+                                            }
+                                        }
+                                    }
+                                },
+                                "footer": {
+                                    "actions": {
+                                        "2": {
+                                            "press": "msales.ext.controller.Send.Send",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "Send "
+                                        }
+                                    }
+                                }
+                            },
+                            "variantManagement": "None",
+                            "controlConfiguration": {
+                                "enquiryToPVehicle/@com.sap.vocabularies.UI.v1.LineItem#VehicleDetails": {
+                                    "tableSettings": {
+                                        "type": "GridTable",
+                                        "selectAll": true,
+                                        "personalization": {
+                                            "sort": true,
+                                            "filter": true
+                                        }
+                                    }
+                                },
+                                "enquiryToPVehicle/@com.sap.vocabularies.UI.v1.LineItem#VehicleDetails1": {
+                                    "tableSettings": {
+                                        "selectAll": true,
+                                        "type": "GridTable",
+                                        "personalization": {
+                                            "column": false,
+                                            "filter": true,
+                                            "sort": true
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

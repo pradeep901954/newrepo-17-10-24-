@@ -1,0 +1,2 @@
+sap.ui.define(["sap/m/MessageToast"],function(e){"use strict";return{SendQuotation:async function(t){debugger;e.show("Quotaion Is Sent");let n="QuotationFunc";let o=t.getModel().bindContext(`/${n}(...)`);var a;var u=window.location.href;const s=/purchaseEnquiryUuid=([a-fA-F0-9-]+)/;const i=u.match(s);if(i){a=i[1];console.log(a)}o.setParameter("para",a);await o.execute();const r=o.getBoundContext();var c=r.getValue();debugger}}});
+//# sourceMappingURL=SendQuotation.js.map

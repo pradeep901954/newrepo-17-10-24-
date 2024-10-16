@@ -26,6 +26,8 @@ service MyService {
     entity PaymentDetails as projection on db.PaymentDetails;
     entity Stocks as projection on db.Stocks;
     entity Files as projection on db.Files;
+    entity Comment as projection on db.Comment;
     function postattach(p : String) returns String;
     function fileds(para1 : String, Para2 : String) returns String;
+    function QuotationFunc(para : String) returns String;
 }

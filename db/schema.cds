@@ -23,10 +23,12 @@ key purchaseEnquiryUuid  : UUID;
   status : String;
   NegoId : String;
   band : String;
+  comments : String;
   enquiryToFile : Composition of many Files on enquiryToFile.fileToEnquiry = $self;
   enquiryToPVehicle : Composition of many PurchareVehicle on enquiryToPVehicle.vehicleTopurchaseEnquiry = $self;
   enquiryToVehicle : Composition of many QuotationVehicle on enquiryToVehicle.vehicleToEnquiry = $self;
   enquiryToQuotation : Composition of  many Quotation on enquiryToQuotation.quototionToEnquiry = $self;
+  enquiryToComments : Composition of many Comment on enquiryToComments.commentToEnquiry = $self;
   }
 
 entity PurchareVehicle @(UI: {CreateHidden: true, DeleteHidden: true }) { 
@@ -42,6 +44,7 @@ entity PurchareVehicle @(UI: {CreateHidden: true, DeleteHidden: true }) {
     tax : String;
     actualPrice : String;
     discount : String default '0';
+    band : String;
     vehicleTopurchaseEnquiry : Association to one PurchaseEnquiry on vehicleTopurchaseEnquiry.purchaseEnquiryUuid= purchaseEnquiryUuid;
   }
 
@@ -56,6 +59,7 @@ key quotatationUuid : UUID;
   grandTotal : String @readonly;
   deliveryLeadTime : String;
   validity : String;
+  band : String;
   quotationTOPO : Composition of one PurchaseOrder on quotationTOPO.pOToQuotation = $self;
   quotationToVehicle : Composition of many QuotationVehicle on quotationToVehicle.vehicleToQuotation = $self;
   quototionToEnquiry : Association to one PurchaseEnquiry on quototionToEnquiry.purchaseEnquiryUuid = purchaseEnquiryUuid;
@@ -76,6 +80,7 @@ entity QuotationVehicle {
     totalPrice  : String;
     tax : String;
     grandTotal : String;
+    comments : String;
     vehicleToQuotation : Association to one Quotation on vehicleToQuotation.qID = qID;
     vehicleToEnquiry : Association to one PurchaseEnquiry on vehicleToEnquiry.purchaseEnquiryUuid = purchaseEnquiryUuid;
 }
@@ -124,9 +129,6 @@ entity SalesOrder {
   price : String;
   taxes : String;
   discount : String;
-  silver : String;
-  gold : String;
-  platinum : String;
 }
 
 entity PaymentDetails{
@@ -147,6 +149,18 @@ entity Stocks{
     quantity : String;
     pricePerUnit : String;
     tax : String;
+    silver : String;
+    gold : String;
+    platinum : String;
+}
+
+entity Comment{
+  key commentId : UUID;
+  purchaseEnquiryUuid  : String;
+  createdBy : String;
+  createdAt : String;
+  commentsText : String;
+  commentToEnquiry: Association to one PurchaseEnquiry on commentToEnquiry.purchaseEnquiryUuid = purchaseEnquiryUuid;
 }
 
 entity Files : managed {

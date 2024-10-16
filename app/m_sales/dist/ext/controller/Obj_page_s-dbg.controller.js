@@ -1,6 +1,9 @@
 sap.ui.define(['sap/ui/core/mvc/ControllerExtension'], function (ControllerExtension) {
 	'use strict';
-
+var send ;
+var Quotation;
+var Quotation1;
+var comments;
 	return ControllerExtension.extend('msales.ext.controller.Obj_page_s', {
 		// this section allows to extend lifecycle hooks or hooks provided by Fiori elements
 		override: {
@@ -13,11 +16,41 @@ sap.ui.define(['sap/ui/core/mvc/ControllerExtension'], function (ControllerExten
 				// you can access the Fiori elements extensionAPI via this.base.getExtensionAPI
 				var oModel = this.base.getExtensionAPI().getModel();
 			},
+			editFlow: {
+				onAfterEdit: function (mParameters) {
+					debugger
+					setTimeout(() => {
+						send.setVisible(false);
+						comments.setEnabled(true);
+					}, 800);
+					
+				},
+				onAfterSave: function (mParameters) {
+					debugger
+					setTimeout(() => {
+						send.setVisible(true);
+						comments.setEnabled(false);
+						this.base.getView().mAggregations.content[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].mProperties.text = 'Edit';
+				
+					}, 800);
+				}
+			},
+			onBeforeRendering: async function (oParameter) {
+				debugger
+				this.base.getView().mAggregations.content[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].mProperties.text = 'Raise Quotation';
+			},
 			routing: {
 				onAfterBinding: async function (oParameter) {
 					debugger
-					this.base.getView().mAggregations.content[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].mProperties.text = 'Raise Quotation';
-					
+					// 
+					send = this.base.getView().mAggregations.content[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[3];
+					send.setVisible(false);
+					Quotation = this.base.getView().mAggregations.content[0].mAggregations.sections[3];
+					Quotation1 = this.base.getView().mAggregations.content[0].mAggregations.sections[2];
+					comments = this.base.getView().mAggregations.content[0].mAggregations.sections[5].mAggregations._grid.mAggregations.content[0].mAggregations._grid.mAggregations.content[0].mAggregations.content.mAggregations.items[1]
+					comments.setEnabled(false);
+
+
 					let funcname = 'postattach';
 					let oFunction = oParameter.getModel().bindContext(`/${funcname}(...)`);
 					var a;
@@ -33,35 +66,32 @@ sap.ui.define(['sap/ui/core/mvc/ControllerExtension'], function (ControllerExten
 					const oContext = oFunction.getBoundContext();
 					var result = oContext.getValue();
 					debugger
-					if (result.value == 'false') {
-						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(false);
-					} else {
+					if(result.value.status === 'Request'){
 						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(true);
-					}
+						Quotation.setVisible(false);
+						Quotation1.setVisible(true);
 
-					var sId;
-					await this.base.getView().getContent()[0].getFooter().mAggregations.content.getContent().forEach(element => {
-						// if(element.getText())
-						debugger
-						var text;
-						try {
-							text = element.getText()
-						} catch (error) {
-							text = null;
-						}
-						// var text =element.getText();
-						if (text == 'Save')
-							sId = element.sId;
-						// element.setText("Send for Approval");
-					});
-					setTimeout(() => {
-						sap.ui.getCore().byId(sId).setText("Send Quotation");
-					}, 1000);
+					}else if(result.value.status === 'Negotiation'){
+						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(true);
+						Quotation.setVisible(true);
+						Quotation1.setVisible(false);
+
+
+					}else if (result.value.status === 'Approved'){
+						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(false);
+						Quotation.setVisible(true);
+						Quotation1.setVisible(false);
+
+					}else if (result.value.status === 'In Process'){
+						this.base.getView().getContent()[0].mAggregations.headerTitle.mAggregations._actionsToolbar.mAggregations.content[2].setEnabled(false);
+						Quotation.setVisible(false);
+						Quotation1.setVisible(true);
+		
+					}
 				},
 				onBeforeBinding: async function (oParameter) {
 					debugger
 				}
-
 			}
 		}
 	});
